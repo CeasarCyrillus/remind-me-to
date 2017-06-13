@@ -7,7 +7,10 @@ app = Flask(__name__)
 init_db()
 @app.before_request
 def before_request():
-	db.connect()
+	try:
+		db.connect()
+	except:
+		print("Already open")
 
 @app.after_request
 def after_request(response):

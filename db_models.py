@@ -31,7 +31,6 @@ def init_db():
 		db.create_tables([User])
 	except:
 		print("Database up and running")
-	db.connect()
 
 def create_msg(msg, email, days):
 	time = time.time()

@@ -5,6 +5,15 @@ from time import time
 from db_models import *
 app = Flask(__name__)
 init_db()
+@app.before_request
+def before_request():
+	db.connect()
+
+@app.after_request
+def after_request(response):
+	db.close()
+	return response
+
 @app.route("/", methods=["GET", "POST"])
 def index():
 	return render_template("index.html")

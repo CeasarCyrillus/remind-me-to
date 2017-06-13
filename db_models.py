@@ -44,4 +44,3 @@ def get_user(email):
 	except:
 		return False
 	return user
-init_db()

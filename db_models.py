@@ -1,7 +1,16 @@
 import sqlite3
 from peewee import *
 import os
-db = SqliteDatabase("messeges.db")
+from playhouse.db_url import connect
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if DATABASE_URL:
+	db = connect(DATABASE_URL)
+else:
+	DATABASE = 'DB'
+db = PostgresqlDatabase(DATABASE)
+
+
 
 #All Models need Meta class and correct DB setup
 #That's why they inherit it from the BaseModel
@@ -9,7 +18,7 @@ class Base_model(Model):
 	class Meta:
 		database = db
 
-class Msg(Base_model):
+class User(Base_model):
 	#Name
 	msg = CharField()
 	time = CharField()
@@ -17,18 +26,17 @@ class Msg(Base_model):
 
 def init_db():
 	try:
-		os.remove("messeges.db") #Clears db every time
-		db.create_tables([Msg])
+		db.create_tables([User])
 	except:
-		print("Restarted DB")
+		raise
 	db.connect()
 
 def create_msg(msg, email, days):
 	time = time.time()
 	time += days*86400000 #Convert days to miliseconds
-	Msg.create(email=email, msg=msg, time=time)
+	User.create(email=email, msg=msg, time=time)
 
 def get_user(email):
-	user = Msg.get(Msg.email == email)
-	msg = user.msg
-	return msg
+	user = User.get(User.email == email)
+	return user
+init_db()

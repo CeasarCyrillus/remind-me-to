@@ -14,3 +14,4 @@ def save_msg():
 	msg = request.form.get("msg")
 	days = request.form.get("days")
 	email = request.form.get("email")
+	create_msg(msg, email, days)

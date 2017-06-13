@@ -35,7 +35,7 @@ def init_db():
 
 def create_msg(msg, email, days):
 	time = time.time()
-	time += days*86400000 #Convert days to miliseconds
+	time += int(days)*86400000 #Convert days to miliseconds
 	User.create(email=email, msg=msg, time=time)
 
 def get_user(email):

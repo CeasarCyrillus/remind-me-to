@@ -1,4 +1,5 @@
 Flask
 gunicorn
 sendgrid
+psycopg2
 peewee

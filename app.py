@@ -8,8 +8,11 @@ app = Flask(__name__)
 init_db()
 @app.route("/", methods=["GET", "POST"])
 def index():
-	if request.method == "GET":
-		return render_template("index.html")
-	elif request.method == "POST":
-		return "POST"
+	return render_template("index.html")
+
+@app.route("/save_msg", methods=["POST"])
+def save_msg():
+	msg = request.form.get("msg")
+	days = request.form.get("days")
+	email = request.form.get("email")
 app.run(debug=True)

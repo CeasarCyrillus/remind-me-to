@@ -2,16 +2,18 @@ import sqlite3
 from peewee import *
 import os
 from playhouse.db_url import connect
-
-DATABASE_URL = os.environ.get("DATABASE_URL")
-if DATABASE_URL:
-	db = connect(DATABASE_URL)
-else:
-	DATABASE = 'DB'
-db = PostgresqlDatabase(DATABASE)
-
-
-
+#Choose what DB to be used, for debugging purp.
+def get_db():
+	db_url = os.environ.get("DATABASE_URL")
+	if db_url:
+		db = connect(db_url)
+		print("Using postgres")
+	else:
+		database = 'sqlite.db'
+		db = SqliteDatabase(database)
+	return db
+#init db conn
+db = get_db()
 #All Models need Meta class and correct DB setup
 #That's why they inherit it from the BaseModel
 class Base_model(Model):
@@ -28,7 +30,7 @@ def init_db():
 	try:
 		db.create_tables([User])
 	except:
-		raise
+		print("Database up and running")
 	db.connect()
 
 def create_msg(msg, email, days):
@@ -37,6 +39,9 @@ def create_msg(msg, email, days):
 	User.create(email=email, msg=msg, time=time)
 
 def get_user(email):
-	user = User.get(User.email == email)
+	try:
+		user = User.get(User.email == email)
+	except:
+		return False
 	return user
 init_db()

@@ -1,0 +1,37 @@
+body, form
+{
+	text-align: center;
+	background-color: #DA5552;
+}
+h1, input, button, h2
+{
+	color: #E4B1AB;
+	font-size: 4rem;
+	margin: 0;
+	font-family: Verdana;
+	margin: 5px;
+}
+button
+{
+	font-size: 3rem;
+}
+h2
+{
+	font-size: 3rem;
+}
+input
+{
+	background-color: #E39695;
+	color: #CC444B;
+	border: none;
+}
+
+button
+{
+	color: #E4B1AB;
+	margin: 0 auto;
+	background-color: #CC444B;
+	border: 2px solid rgba(0, 0, 0, 0);
+	padding: 20px;
+	border-radius: 10px;
+}

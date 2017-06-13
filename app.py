@@ -1,13 +1,15 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import url_for
+from time import time
+from db_models import *
 app = Flask(__name__)
-
-@app.route("/")
+init_db()
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
-
-@app.route("/action", methods=["POST"])
-def action():
-	msg = request.form["msg"]
-	return render_template("index.html", msg=msg)
+	if request.method == "GET":
+		return render_template("index.html")
+	elif request.method == "POST":
+		return "POST"
+app.run(debug=True)
